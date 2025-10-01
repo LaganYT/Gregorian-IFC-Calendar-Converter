@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gregorian to IFC Calendar Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="converter-card">
+            <h1>Gregorian to IFC Calendar Converter</h1>
+            <p class="description">Convert Gregorian dates to the International Fixed Calendar (IFC) system</p>
+
+            <div class="input-section">
+                <label for="gregorian-date">Select Gregorian Date:</label>
+                <input type="date" id="gregorian-date" />
+                <button id="convert-btn">Convert</button>
+            </div>
+
+            <div class="result-section">
+                <h2>IFC Date:</h2>
+                <div id="ifc-result" class="result-display">Please select a date and click Convert</div>
+            </div>
+
+            <div class="info">
+                <p><strong>IFC Calendar:</strong> 13 months × 28 days = 364 days + Year Day + Leap Day (in leap years)</p>
+                <p><strong>Months:</strong> Jan, Feb, Mar, Apr, May, Jun, Sol, Jul, Aug, Sep, Oct, Nov, Dec</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
