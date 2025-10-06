@@ -8,133 +8,287 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 20px;
 }
 
 .container {
-    width: 100%;
-    max-width: 500px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+    margin-bottom: 40px;
 }
 
-.converter-card {
+.calendar-card {
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Calendar Header */
+.calendar-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
     text-align: center;
 }
 
-h1 {
-    color: #333;
-    margin-bottom: 10px;
-    font-size: 28px;
-    font-weight: 600;
+.gregorian-calendar .calendar-header {
+    background: linear-gradient(135deg, #667eea 0%, #5a67d8 100%);
 }
 
-.description {
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 16px;
+.ifc-calendar .calendar-header {
+    background: linear-gradient(135deg, #764ba2 0%, #6b46c1 100%);
 }
 
-.input-section {
-    margin-bottom: 30px;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-weight: 500;
-}
-
-input[type="date"] {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e1e1e1;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
-}
-
-input[type="date"]:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-.result-section {
-    margin-bottom: 30px;
-}
-
-.result-section h2 {
-    color: #333;
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-.result-display {
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    padding: 20px;
+.calendar-header h1 {
+    margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: #495057;
-    min-height: 60px;
+    letter-spacing: 1px;
+}
+
+.calendar-subtitle {
+    margin-top: 4px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    background: white;
+    padding: 0;
+}
+
+.calendar-footer {
     display: flex;
     align-items: center;
+    gap: 8px;
+    padding: 12px 15px;
+    border-top: 1px solid #dee2e6;
+    background: #fafbfc;
+}
+
+.footer-label {
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.footer-value {
+    font-size: 14px;
+    color: #343a40;
+    font-weight: 600;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.day-header {
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    border-right: 1px solid #dee2e6;
+}
+
+.day-header:last-child {
+    border-right: none;
+}
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    min-height: 300px;
+}
+
+.date-cell {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    min-height: 45px;
 }
 
-.info {
-    border-top: 1px solid #e9ecef;
-    padding-top: 20px;
-    text-align: left;
+.date-cell:hover {
+    background-color: #f8f9fa;
 }
 
-.info p {
+.date-cell.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.date-cell.other-month {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+}
+
+.date-cell.today {
+    background-color: #e7f3ff;
+    border: 2px solid #667eea;
+}
+
+.date-number {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.date-note {
+    font-size: 9px;
+    opacity: 0.8;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Date Input Section */
+.date-input-section {
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.date-input-section label {
+    display: block;
     margin-bottom: 8px;
-    color: #666;
+    color: #495057;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.date-input-section input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+.date-input-section input[type="date"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.25);
+}
+
+/* Info Section */
+.info-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    text-align: center;
+}
+
+.info-card h2 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.info-content p {
+    color: #6c757d;
+    margin-bottom: 8px;
     font-size: 14px;
     line-height: 1.5;
 }
 
-.info strong {
-    color: #333;
+.info-content strong {
+    color: #495057;
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
-    .converter-card {
-        padding: 30px 20px;
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 600px;
     }
 
-    h1 {
-        font-size: 24px;
+    .calendar-header h1 {
+        font-size: 16px;
+    }
+
+    .day-header {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    .date-cell {
+        min-height: 40px;
+        padding: 6px;
+    }
+
+    .date-number {
+        font-size: 13px;
+    }
+
+    .date-note {
+        font-size: 8px;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .info-card h2 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+
+    .calendar-header {
+        padding: 12px;
+    }
+
+    .calendar-header h1 {
+        font-size: 14px;
+    }
+
+    .day-header {
+        padding: 6px;
+        font-size: 10px;
+    }
+
+    .date-cell {
+        min-height: 35px;
+        padding: 4px;
+    }
+
+    .date-number {
+        font-size: 12px;
+    }
+
+    .info-section {
+        padding: 0 15px;
     }
 }
